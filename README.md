@@ -3,7 +3,7 @@
 Commercial-grade, open-source Android application protection framework.
 
 **Repository:** https://github.com/deepprojectgit/AndroidShield  
-**Version:** `0.1.0-SNAPSHOT` (Phases 1–8 complete)  
+**Version:** `0.1.0` (Phases 1–8 complete)  
 **Min SDK:** 24 · **AGP:** 8.7+ · **Kotlin:** 2.0+  
 **License:** Apache License 2.0
 
@@ -51,11 +51,11 @@ Protect Android apps against reverse engineering, debugging, hooking, tampering,
 
 ```kotlin
 plugins {
-    id("com.androidshield.gradle") version "0.1.0-SNAPSHOT"
+    id("com.androidshield.gradle") version "0.1.0"
 }
 
 dependencies {
-    implementation("io.github.deepprojectgit.androidshield:android-shield-runtime:0.1.0-SNAPSHOT")
+    implementation("io.github.deepprojectgit.androidshield:android-shield-runtime:0.1.0")
 }
 
 androidShield {

@@ -88,6 +88,15 @@ jobs:
           sdkmanager "ndk;27.0.12077973" "cmake;3.22.1"
           echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.0.12077973" >> "$GITHUB_ENV"
 
+      - name: Require non-SNAPSHOT version
+        run: |
+          VERSION=$(grep -E '^androidshield.version=' gradle.properties | cut -d= -f2 | tr -d '[:space:]')
+          echo "androidshield.version=$VERSION"
+          if [[ "$VERSION" == *-SNAPSHOT ]]; then
+            echo "::error::Maven Central Portal does not accept SNAPSHOT versions. Set androidshield.version to a release (e.g. 0.1.0) in gradle.properties."
+            exit 1
+          fi
+
       - name: Verify Maven secrets
         env:
           USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}

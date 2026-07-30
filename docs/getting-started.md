@@ -36,11 +36,11 @@ After publishing to Maven Central (or `mavenLocal()`):
 
 // app/build.gradle.kts
 plugins {
-    id("com.androidshield.gradle") version "0.1.0-SNAPSHOT"
+    id("com.androidshield.gradle") version "0.1.0"
 }
 
 dependencies {
-    implementation("io.github.deepprojectgit.androidshield:android-shield-runtime:0.1.0-SNAPSHOT")
+    implementation("io.github.deepprojectgit.androidshield:android-shield-runtime:0.1.0")
 }
 ```
 

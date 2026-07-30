@@ -9,7 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Reverted publishing target to **Maven Central** (public GitHub repo + Central Portal)
+- First Maven Central release uses version **`0.1.0`** (Central Portal does not accept `*-SNAPSHOT`)
+- CI publish job fails fast if `androidshield.version` still ends with `-SNAPSHOT`
+
+## [0.1.0] - 2026-07-30
+
+### Added
+
+- Initial public release to Maven Central (`io.github.deepprojectgit.androidshield`)
   - Removed Cloudflare R2 staging/sync flow
   - Unified **CI/CD** workflow: `.github/workflows/ci-cd.yml` (build/test + publish on `main`)
   - Secrets: `MAVEN_CENTRAL_USERNAME`, `MAVEN_CENTRAL_PASSWORD`, `SIGNING_KEY`, `SIGNING_KEY_ID`, `SIGNING_PASSWORD`

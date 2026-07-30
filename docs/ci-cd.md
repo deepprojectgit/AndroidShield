@@ -34,7 +34,7 @@
 
 1. Keep the GitHub repository **public**
 2. Conventional Commits on `main`
-3. Set `androidshield.version` (SemVer; use `-SNAPSHOT` while iterating)
+3. Set `androidshield.version` to a **release** SemVer (no `-SNAPSHOT` — Central Portal rejects snapshots)
 4. Update `CHANGELOG.md`
 5. Push to `main` → **CI/CD** workflow builds, then publishes to Maven Central
 6. Optional: tag `vX.Y.Z` for GitHub Releases / release notes; or run **CI/CD** via `workflow_dispatch`

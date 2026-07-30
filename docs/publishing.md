@@ -10,8 +10,10 @@
 ## Coordinates
 
 - **Group:** `io.github.deepprojectgit.androidshield`
-- **Version:** `androidshield.version` in `gradle.properties` (SemVer)
+- **Version:** `androidshield.version` in `gradle.properties` (SemVer release — **no `-SNAPSHOT`**)
 - **Repository:** Maven Central (Sonatype Central Portal)
+
+> Central Portal does **not** accept `*-SNAPSHOT` uploads. Use `0.1.0`, `0.1.1`, … for publish.
 
 ## Artifacts
 
@@ -33,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.deepprojectgit.androidshield:android-shield-runtime:0.1.0-SNAPSHOT")
+    implementation("io.github.deepprojectgit.androidshield:android-shield-runtime:0.1.0")
 }
 ```
 
@@ -139,10 +141,10 @@ export ORG_GRADLE_PROJECT_signingInMemoryKeyPassword=...
 ## Release checklist
 
 1. Confirm GitHub repo is **public**
-2. Bump `androidshield.version` in `gradle.properties` (drop `-SNAPSHOT` for a release)
+2. Bump `androidshield.version` in `gradle.properties` to a **release** version (no `-SNAPSHOT`; Central Portal rejects snapshots)
 3. Update `CHANGELOG.md`
 4. Merge to `main` (CI/CD builds then publishes) or run **CI/CD** manually
-5. After a release, bump to the next `X.Y.Z-SNAPSHOT`
+5. After a release, optionally bump to `X.Y.Z-SNAPSHOT` locally for continued development (publish will stay skipped until the next release version)
 
 ## Plugin Portal (optional)
 
