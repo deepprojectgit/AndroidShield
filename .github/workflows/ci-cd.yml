@@ -93,11 +93,16 @@ jobs:
           USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
           SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
         run: |
           missing=0
           [ -n "$USERNAME" ] || { echo "::error::Missing secret MAVEN_CENTRAL_USERNAME"; missing=1; }
           [ -n "$PASSWORD" ] || { echo "::error::Missing secret MAVEN_CENTRAL_PASSWORD"; missing=1; }
           [ -n "$SIGNING_KEY" ] || { echo "::error::Missing secret SIGNING_KEY"; missing=1; }
+          if [ -n "$SIGNING_KEY" ] && ! printf '%s' "$SIGNING_KEY" | grep -q "BEGIN PGP PRIVATE KEY BLOCK"; then
+            echo "::error::SIGNING_KEY must be a full ASCII-armored private key (BEGIN PGP PRIVATE KEY BLOCK)"
+            missing=1
+          fi
           exit "$missing"
 
       - name: Publish modules
@@ -105,15 +110,23 @@ jobs:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
-          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
-        run: >
-          ./gradlew
-          :android-shield-annotations:publishToMavenCentral
-          :android-shield-core:publishToMavenCentral
-          :android-shield-native:publishToMavenCentral
-          :android-shield-runtime:publishToMavenCentral
-          :android-shield-plugin:publishToMavenCentral
-          :android-shield-cli:publishToMavenCentral
-          --no-configuration-cache
-          --stacktrace
+          SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
+        run: |
+          # Gradle PgpKeyId uses signed Long — prefer last 8 hex chars.
+          if echo "${SIGNING_KEY_ID:-}" | grep -Eqi '^(0x)?[0-9A-Fa-f]{16}$'; then
+            RAW=$(echo "$SIGNING_KEY_ID" | sed -E 's/^0x//I')
+            export ORG_GRADLE_PROJECT_signingInMemoryKeyId="${RAW: -8}"
+            echo "Using short SIGNING_KEY_ID=${ORG_GRADLE_PROJECT_signingInMemoryKeyId}"
+          elif echo "${SIGNING_KEY_ID:-}" | grep -Eqi '^(0x)?[0-9A-Fa-f]{8}$'; then
+            export ORG_GRADLE_PROJECT_signingInMemoryKeyId="$SIGNING_KEY_ID"
+          fi
+          ./gradlew \
+            :android-shield-annotations:publishToMavenCentral \
+            :android-shield-core:publishToMavenCentral \
+            :android-shield-native:publishToMavenCentral \
+            :android-shield-runtime:publishToMavenCentral \
+            :android-shield-plugin:publishToMavenCentral \
+            :android-shield-cli:publishToMavenCentral \
+            --no-configuration-cache \
+            --stacktrace

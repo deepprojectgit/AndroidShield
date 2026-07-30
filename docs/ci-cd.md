@@ -45,8 +45,8 @@
 |--------|---------|
 | `MAVEN_CENTRAL_USERNAME` | Central Portal user token name |
 | `MAVEN_CENTRAL_PASSWORD` | Central Portal user token password |
-| `SIGNING_KEY` | ASCII-armored GPG private key |
-| `SIGNING_KEY_ID` | GPG key id (recommended) |
+| `SIGNING_KEY` | ASCII-armored GPG private key (full block) |
+| `SIGNING_KEY_ID` | 8/16 hex chars only (optional) |
 | `SIGNING_PASSWORD` | GPG passphrase |
 
 See [publishing.md](publishing.md) for namespace, GPG, and public-repo setup.

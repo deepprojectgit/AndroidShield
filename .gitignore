@@ -37,6 +37,8 @@ hs_err_pid*
 **/keystore.properties
 *.pem
 *.p12
+*.asc
+**/signing-export/
 
 # Mapping / obfuscation outputs (protect in CI artifacts policy)
 **/mapping.txt

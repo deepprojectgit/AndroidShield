@@ -72,11 +72,40 @@ Keep it public while publishing under `io.github.deepprojectgit…`.
 |--------|--------|
 | `MAVEN_CENTRAL_USERNAME` | Central Portal **user token** name |
 | `MAVEN_CENTRAL_PASSWORD` | Central Portal **user token** password |
-| `SIGNING_KEY` | ASCII-armored private GPG key (`gpg --export-secret-keys --armor <KEY_ID>`) |
-| `SIGNING_KEY_ID` | Key id (optional but recommended) |
+| `SIGNING_KEY` | Full ASCII-armored **private** key including `BEGIN/END PGP PRIVATE KEY BLOCK` |
+| `SIGNING_KEY_ID` | Prefer **8 hex chars** (last 8 of the long id), e.g. `50102E96`. Avoid 16-char ids that start with `8`–`F` — Gradle can reject them |
 | `SIGNING_PASSWORD` | GPG passphrase (omit / empty if none) |
 
-Publish the **public** GPG key to a keyserver (e.g. keys.openpgp.org) before the first release.
+**Never paste a private key into chat, Issues, or PRs.** Only into GitHub Secrets.
+
+#### Easiest path (Windows)
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/export-signing-secrets.ps1
+```
+
+The script auto-finds `gpg.exe` (Git for Windows or Gpg4win). If it still fails, use Git Bash instead.
+
+The script writes files under `build/signing-export/` and opens an upload checklist:
+
+1. Copy `SIGNING_KEY.asc` → GitHub secret `SIGNING_KEY`
+2. Copy `SIGNING_KEY_ID.txt` → GitHub secret `SIGNING_KEY_ID`
+3. Set `SIGNING_PASSWORD` to your passphrase
+4. Delete `build/signing-export/` when finished
+
+#### Manual commands
+
+```powershell
+gpg --list-secret-keys --keyid-format LONG
+# SIGNING_KEY_ID = value after rsa4096/  (16 hex chars)
+
+gpg --export-secret-keys --armor YOUR_KEY_ID > signing-key.asc
+# Open signing-key.asc locally and paste into SIGNING_KEY only
+
+gpg --keyserver keys.openpgp.org --send-keys YOUR_KEY_ID
+```
+
+**Common mistake:** putting the entire private key into `SIGNING_KEY_ID`. That must stay in `SIGNING_KEY` only.
 
 ### GitHub Actions
 
