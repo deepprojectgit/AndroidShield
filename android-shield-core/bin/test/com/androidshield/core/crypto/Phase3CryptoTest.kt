@@ -45,16 +45,18 @@ class ConstantEncryptionTest {
             .isEqualTo(42)
         assertThat(ConstantEncryption.decryptLong(ConstantEncryption.encryptLong(99L, key), key))
             .isEqualTo(99L)
-        assertThat(ConstantEncryption.decryptBoolean(ConstantEncryption.encryptBoolean(true, key), key))
+        assertThat(
+            ConstantEncryption.decryptBoolean(ConstantEncryption.encryptBoolean(true, key), key)
+        )
             .isTrue()
         assertThat(
-            ConstantEncryption.decryptString(ConstantEncryption.encryptString("hello", key), key),
+            ConstantEncryption.decryptString(ConstantEncryption.encryptString("hello", key), key)
         ).isEqualTo("hello")
         assertThat(
-            ConstantEncryption.decryptFloat(ConstantEncryption.encryptFloat(1.5f, key), key),
+            ConstantEncryption.decryptFloat(ConstantEncryption.encryptFloat(1.5f, key), key)
         ).isWithin(0.0001f).of(1.5f)
         assertThat(
-            ConstantEncryption.decryptDouble(ConstantEncryption.encryptDouble(2.25, key), key),
+            ConstantEncryption.decryptDouble(ConstantEncryption.encryptDouble(2.25, key), key)
         ).isWithin(0.0001).of(2.25)
     }
 }

@@ -10,7 +10,9 @@ import java.security.SecureRandom
 object KeyScrambler {
     fun scramble(key: ByteArray, seed: ByteArray): ByteArray {
         val mask = deriveMask(seed, key.size)
-        return ByteArray(key.size) { index -> (key[index].toInt() xor mask[index].toInt()).toByte() }
+        return ByteArray(
+            key.size
+        ) { index -> (key[index].toInt() xor mask[index].toInt()).toByte() }
     }
 
     fun unscramble(scrambled: ByteArray, seed: ByteArray): ByteArray = scramble(scrambled, seed)

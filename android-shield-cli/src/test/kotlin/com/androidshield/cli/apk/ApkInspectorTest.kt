@@ -2,12 +2,11 @@ package com.androidshield.cli.apk
 
 import com.androidshield.cli.analyze.ProtectionAnalyzer
 import com.google.common.truth.Truth.assertThat
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
-import java.io.File
-import java.util.zip.ZipEntry
-import java.util.zip.ZipOutputStream
 
 class ApkInspectorTest {
     @get:Rule
@@ -40,7 +39,7 @@ class ApkInspectorTest {
                   "stringEncryptionEnabled":true,
                   "resourceEncryptionEnabled":true
                 }
-                """.trimIndent().toByteArray(),
+                """.trimIndent().toByteArray()
             )
             zip.closeEntry()
             zip.putNextEntry(ZipEntry("assets/shield/secret.bin"))
@@ -66,9 +65,12 @@ class ApkInspectorTest {
             zip.write(byteArrayOf(1))
             zip.closeEntry()
             zip.putNextEntry(ZipEntry("classes.dex"))
-            val bytes = ("XXXX" + "com/androidshield/runtime" + "ShieldStringDecryptor" + "BuildShieldSecrets")
-                .toByteArray()
-            zip.write(bytes)
+            val markerBlob =
+                "XXXX" +
+                    "com/androidshield/runtime" +
+                    "ShieldStringDecryptor" +
+                    "BuildShieldSecrets"
+            zip.write(markerBlob.toByteArray())
             zip.closeEntry()
             zip.putNextEntry(ZipEntry("lib/arm64-v8a/libandroidshield.so"))
             zip.write(byteArrayOf(1, 2, 3))
@@ -77,10 +79,17 @@ class ApkInspectorTest {
             zip.write(byteArrayOf(9))
             zip.closeEntry()
             zip.putNextEntry(ZipEntry("assets/androidshield/integrity.json"))
-            zip.write(
-                """{"version":1,"buildFingerprint":"fp","generatedAtEpochMs":1,"stringEncryptionEnabled":true,"resourceEncryptionEnabled":true}"""
-                    .toByteArray(),
-            )
+            val integrityJson =
+                """
+                {
+                  "version":1,
+                  "buildFingerprint":"fp",
+                  "generatedAtEpochMs":1,
+                  "stringEncryptionEnabled":true,
+                  "resourceEncryptionEnabled":true
+                }
+                """.trimIndent()
+            zip.write(integrityJson.toByteArray())
             zip.closeEntry()
         }
 

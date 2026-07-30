@@ -17,5 +17,5 @@ data class IntegrityMetadata(
     val resourcesDigestSha256: String = "",
     val nativeLibsDigestSha256: String = "",
     val stringEncryptionEnabled: Boolean = false,
-    val resourceEncryptionEnabled: Boolean = false,
+    val resourceEncryptionEnabled: Boolean = false
 )

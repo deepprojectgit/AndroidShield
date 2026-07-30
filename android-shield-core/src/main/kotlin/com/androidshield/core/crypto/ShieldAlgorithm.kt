@@ -8,5 +8,5 @@ package com.androidshield.core.crypto
  */
 enum class ShieldAlgorithm {
     AES_GCM,
-    CHACHA20_POLY1305,
+    CHACHA20_POLY1305
 }

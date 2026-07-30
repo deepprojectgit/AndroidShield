@@ -22,7 +22,7 @@ object SecurityReportBuilder {
     @JvmOverloads
     fun fromThreats(
         threats: List<Threat>,
-        policy: ScoringPolicy = ScoringPolicy.DEFAULT,
+        policy: ScoringPolicy = ScoringPolicy.DEFAULT
     ): SecurityReport {
         val ordered = threats.sortedByDescending { it.severity.ordinal }
         val penalty = ordered.sumOf { policy.penaltyFor(it.severity) }

@@ -26,7 +26,7 @@ data class ShieldConfig(
     val bytecodeObfuscation: Boolean = true,
     val stripMetadata: Boolean = true,
     val obfuscationIntensity: Int = 1,
-    val protectPackages: List<String> = emptyList(),
+    val protectPackages: List<String> = emptyList()
 ) {
     init {
         require(obfuscationIntensity in 1..3) {
@@ -49,7 +49,7 @@ data class ShieldConfig(
         "nativeProtection" to nativeProtection,
         "constantEncryption" to constantEncryption,
         "bytecodeObfuscation" to bytecodeObfuscation,
-        "stripMetadata" to stripMetadata,
+        "stripMetadata" to stripMetadata
     )
 
     class Builder {
@@ -103,7 +103,7 @@ data class ShieldConfig(
             bytecodeObfuscation = bytecodeObfuscation,
             stripMetadata = stripMetadata,
             obfuscationIntensity = obfuscationIntensity,
-            protectPackages = protectPackages,
+            protectPackages = protectPackages
         )
     }
 

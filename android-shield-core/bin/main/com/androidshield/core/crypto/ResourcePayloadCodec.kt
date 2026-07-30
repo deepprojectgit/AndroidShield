@@ -33,7 +33,7 @@ object ResourcePayloadCodec {
             0,
             out,
             4 + payload.ivOrNonce.size,
-            payload.cipherText.size,
+            payload.cipherText.size
         )
         return out
     }
@@ -43,7 +43,7 @@ object ResourcePayloadCodec {
      */
     fun decode(
         bytes: ByteArray,
-        defaultAlgorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM,
+        defaultAlgorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM
     ): EncryptedPayload {
         require(bytes.size >= 5) { "AS1 payload too short" }
         require(bytes[0] == MAGIC_0 && bytes[1] == MAGIC_1 && bytes[2] == MAGIC_2) {
@@ -56,11 +56,10 @@ object ResourcePayloadCodec {
         return EncryptedPayload(defaultAlgorithm, cipherText, iv)
     }
 
-    fun isShieldPayload(bytes: ByteArray): Boolean =
-        bytes.size >= 4 &&
-            bytes[0] == MAGIC_0 &&
-            bytes[1] == MAGIC_1 &&
-            bytes[2] == MAGIC_2
+    fun isShieldPayload(bytes: ByteArray): Boolean = bytes.size >= 4 &&
+        bytes[0] == MAGIC_0 &&
+        bytes[1] == MAGIC_1 &&
+        bytes[2] == MAGIC_2
 
     /**
      * Encrypts plaintext bytes and returns AS1 container bytes.
@@ -68,7 +67,7 @@ object ResourcePayloadCodec {
     fun seal(
         plain: ByteArray,
         key: ByteArray,
-        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM,
+        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM
     ): ByteArray = encode(ShieldCipher.encrypt(plain, key, algorithm))
 
     /**
@@ -77,6 +76,6 @@ object ResourcePayloadCodec {
     fun open(
         sealed: ByteArray,
         key: ByteArray,
-        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM,
+        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM
     ): ByteArray = ShieldCipher.decrypt(decode(sealed, algorithm), key)
 }

@@ -31,11 +31,11 @@ class IntegrityVerifierTest {
         val expected = IntegrityMetadata(
             buildFingerprint = "fp1",
             generatedAtEpochMs = 1L,
-            dexDigestSha256 = "deadbeef",
+            dexDigestSha256 = "deadbeef"
         )
         val observed = ObservedIntegrity(
             buildFingerprint = "fp1",
-            dexDigestSha256 = "DEADBEEF",
+            dexDigestSha256 = "DEADBEEF"
         )
         val result = IntegrityVerifier.verify(expected, observed)
         assertThat(result.matches).isTrue()
@@ -47,11 +47,11 @@ class IntegrityVerifierTest {
         val expected = IntegrityMetadata(
             buildFingerprint = "fp1",
             generatedAtEpochMs = 1L,
-            dexDigestSha256 = "aaa",
+            dexDigestSha256 = "aaa"
         )
         val observed = ObservedIntegrity(
             buildFingerprint = "fp1",
-            dexDigestSha256 = "bbb",
+            dexDigestSha256 = "bbb"
         )
         val result = IntegrityVerifier.verify(expected, observed)
         assertThat(result.matches).isFalse()
@@ -65,7 +65,7 @@ class IntegrityVerifierTest {
             buildFingerprint = "abc",
             generatedAtEpochMs = 123,
             packageName = "com.example",
-            stringEncryptionEnabled = true,
+            stringEncryptionEnabled = true
         )
         val decoded = IntegrityMetadataCodec.decode(IntegrityMetadataCodec.encode(meta))
         assertThat(decoded).isEqualTo(meta)

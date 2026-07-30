@@ -16,6 +16,7 @@ import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.choice
 import com.github.ajalt.clikt.parameters.types.file
 import java.io.File
+import java.io.IOException
 import kotlin.system.exitProcess
 
 /**
@@ -32,7 +33,7 @@ fun main(args: Array<String>) {
             VersionCommand(),
             InspectCommand(),
             VerifyCommand(),
-            ReportCommand(),
+            ReportCommand()
         )
         .main(args)
 }
@@ -50,7 +51,7 @@ internal class VersionCommand : CliktCommand(name = "version") {
     override fun run() {
         echo(
             "android-shield-cli ${AndroidShieldCore.VERSION_NAME} " +
-                "(core API level ${AndroidShieldCore.API_LEVEL})",
+                "(core API level ${AndroidShieldCore.API_LEVEL})"
         )
     }
 }
@@ -73,7 +74,10 @@ internal class InspectCommand : CliktCommand(name = "inspect") {
             } else {
                 CliReporter.printInspection(analysis, verbose)
             }
-        } catch (error: Exception) {
+        } catch (error: IOException) {
+            echo("inspect failed: ${error.message}", err = true)
+            exitProcess(2)
+        } catch (error: IllegalArgumentException) {
             echo("inspect failed: ${error.message}", err = true)
             exitProcess(2)
         }
@@ -93,17 +97,17 @@ internal class VerifyCommand : CliktCommand(name = "verify") {
 
     private val requireIntegrity by option(
         "--require-integrity",
-        help = "Fail when integrity.json is missing",
+        help = "Fail when integrity.json is missing"
     ).flag()
 
     private val requireNative by option(
         "--require-native",
-        help = "Fail when libandroidshield.so is missing",
+        help = "Fail when libandroidshield.so is missing"
     ).flag()
 
     private val requireEncryptedAssets by option(
         "--require-encrypted-assets",
-        help = "Fail when no AS1 encrypted assets are present",
+        help = "Fail when no AS1 encrypted assets are present"
     ).flag()
 
     private val json by option("--json", help = "Print SecurityReport JSON").flag()
@@ -117,13 +121,16 @@ internal class VerifyCommand : CliktCommand(name = "verify") {
                 policy = policy,
                 requireIntegrityMetadata = requireIntegrity,
                 requireNativeLib = requireNative,
-                requireEncryptedAssets = requireEncryptedAssets,
+                requireEncryptedAssets = requireEncryptedAssets
             )
             CliReporter.printReport(report, asJson = json)
             if (!report.secure) {
                 exitProcess(1)
             }
-        } catch (error: Exception) {
+        } catch (error: IOException) {
+            echo("verify failed: ${error.message}", err = true)
+            exitProcess(2)
+        } catch (error: IllegalArgumentException) {
             echo("verify failed: ${error.message}", err = true)
             exitProcess(2)
         }
@@ -149,7 +156,7 @@ internal class ReportCommand : CliktCommand(name = "report") {
     private val requireEncryptedAssets by option("--require-encrypted-assets").flag()
     private val failOnThreats by option(
         "--fail-on-threats",
-        help = "Exit 1 when report is insecure",
+        help = "Exit 1 when report is insecure"
     ).flag()
 
     override fun run() {
@@ -161,7 +168,7 @@ internal class ReportCommand : CliktCommand(name = "report") {
                 policy = policy,
                 requireIntegrityMetadata = requireIntegrity,
                 requireNativeLib = requireNative,
-                requireEncryptedAssets = requireEncryptedAssets,
+                requireEncryptedAssets = requireEncryptedAssets
             )
             val text = com.androidshield.core.report.SecurityReportBuilder.toJson(report)
             val outFile: File? = output
@@ -175,7 +182,10 @@ internal class ReportCommand : CliktCommand(name = "report") {
             if (failOnThreats && !report.secure) {
                 exitProcess(1)
             }
-        } catch (error: Exception) {
+        } catch (error: IOException) {
+            echo("report failed: ${error.message}", err = true)
+            exitProcess(2)
+        } catch (error: IllegalArgumentException) {
             echo("report failed: ${error.message}", err = true)
             exitProcess(2)
         }

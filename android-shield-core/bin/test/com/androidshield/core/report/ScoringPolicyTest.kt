@@ -18,7 +18,7 @@ class ScoringPolicyTest {
         val medium = ThreatFixtures.sampleLow().copy(
             id = "test.medium",
             severity = Severity.MEDIUM,
-            title = "Medium",
+            title = "Medium"
         )
         val report = SecurityReportBuilder.fromThreats(listOf(medium), ScoringPolicy.STRICT)
         assertThat(report.secure).isFalse()

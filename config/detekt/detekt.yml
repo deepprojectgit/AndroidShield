@@ -93,5 +93,6 @@ formatting:
     maxLineLength: 140
   NoWildcardImports:
     active: true
+  # Handled by ktlint (android import layout); avoid conflicting with detekt defaults.
   ImportOrdering:
-    active: true
+    active: false

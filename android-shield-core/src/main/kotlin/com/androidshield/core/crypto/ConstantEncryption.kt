@@ -16,12 +16,12 @@ object ConstantEncryption {
     private const val TAG_FLOAT: Byte = 3
     private const val TAG_DOUBLE: Byte = 4
     private const val TAG_BOOLEAN: Byte = 5
-    private const val TAG_STRING: Byte = 6
+    internal const val TAG_STRING: Byte = 6
 
     fun encryptInt(
         value: Int,
         key: ByteArray,
-        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM,
+        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM
     ): EncryptedPayload {
         val plain = ByteBuffer.allocate(5).put(TAG_INT).putInt(value).array()
         return ShieldCipher.encrypt(plain, key, algorithm)
@@ -36,7 +36,7 @@ object ConstantEncryption {
     fun encryptLong(
         value: Long,
         key: ByteArray,
-        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM,
+        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM
     ): EncryptedPayload {
         val plain = ByteBuffer.allocate(9).put(TAG_LONG).putLong(value).array()
         return ShieldCipher.encrypt(plain, key, algorithm)
@@ -51,7 +51,7 @@ object ConstantEncryption {
     fun encryptFloat(
         value: Float,
         key: ByteArray,
-        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM,
+        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM
     ): EncryptedPayload {
         val plain = ByteBuffer.allocate(5).put(TAG_FLOAT).putFloat(value).array()
         return ShieldCipher.encrypt(plain, key, algorithm)
@@ -66,7 +66,7 @@ object ConstantEncryption {
     fun encryptDouble(
         value: Double,
         key: ByteArray,
-        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM,
+        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM
     ): EncryptedPayload {
         val plain = ByteBuffer.allocate(9).put(TAG_DOUBLE).putDouble(value).array()
         return ShieldCipher.encrypt(plain, key, algorithm)
@@ -81,7 +81,7 @@ object ConstantEncryption {
     fun encryptBoolean(
         value: Boolean,
         key: ByteArray,
-        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM,
+        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM
     ): EncryptedPayload {
         val plain = byteArrayOf(TAG_BOOLEAN, if (value) 1 else 0)
         return ShieldCipher.encrypt(plain, key, algorithm)
@@ -92,22 +92,27 @@ object ConstantEncryption {
         require(plain.size == 2 && plain[0] == TAG_BOOLEAN) { "Not an encrypted Boolean constant" }
         return plain[1] != 0.toByte()
     }
+}
 
-    fun encryptString(
-        value: String,
-        key: ByteArray,
-        algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM,
-    ): EncryptedPayload {
-        val utf8 = value.toByteArray(Charsets.UTF_8)
-        val plain = ByteArray(1 + utf8.size)
-        plain[0] = TAG_STRING
-        System.arraycopy(utf8, 0, plain, 1, utf8.size)
-        return ShieldCipher.encrypt(plain, key, algorithm)
-    }
+/**
+ * String constant AEAD helpers kept outside [ConstantEncryption] for complexity limits.
+ */
+fun ConstantEncryption.encryptString(
+    value: String,
+    key: ByteArray,
+    algorithm: ShieldAlgorithm = ShieldAlgorithm.AES_GCM
+): EncryptedPayload {
+    val utf8 = value.toByteArray(Charsets.UTF_8)
+    val plain = ByteArray(1 + utf8.size)
+    plain[0] = ConstantEncryption.TAG_STRING
+    System.arraycopy(utf8, 0, plain, 1, utf8.size)
+    return ShieldCipher.encrypt(plain, key, algorithm)
+}
 
-    fun decryptString(payload: EncryptedPayload, key: ByteArray): String {
-        val plain = ShieldCipher.decrypt(payload, key)
-        require(plain.isNotEmpty() && plain[0] == TAG_STRING) { "Not an encrypted String constant" }
-        return plain.copyOfRange(1, plain.size).toString(Charsets.UTF_8)
+fun ConstantEncryption.decryptString(payload: EncryptedPayload, key: ByteArray): String {
+    val plain = ShieldCipher.decrypt(payload, key)
+    require(plain.isNotEmpty() && plain[0] == ConstantEncryption.TAG_STRING) {
+        "Not an encrypted String constant"
     }
+    return plain.copyOfRange(1, plain.size).toString(Charsets.UTF_8)
 }

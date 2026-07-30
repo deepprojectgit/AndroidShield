@@ -15,12 +15,13 @@ object IntegrityMetadataCodec {
 
     fun encode(metadata: IntegrityMetadata): String = json.encodeToString(metadata)
 
-    fun encodePretty(metadata: IntegrityMetadata): String =
-        Json { prettyPrint = true; encodeDefaults = true; ignoreUnknownKeys = true }
-            .encodeToString(metadata)
+    fun encodePretty(metadata: IntegrityMetadata): String = Json {
+        prettyPrint = true
+        encodeDefaults = true
+        ignoreUnknownKeys = true
+    }.encodeToString(metadata)
 
     fun decode(raw: String): IntegrityMetadata = json.decodeFromString(raw)
 
-    fun decode(bytes: ByteArray): IntegrityMetadata =
-        decode(bytes.toString(Charsets.UTF_8))
+    fun decode(bytes: ByteArray): IntegrityMetadata = decode(bytes.toString(Charsets.UTF_8))
 }

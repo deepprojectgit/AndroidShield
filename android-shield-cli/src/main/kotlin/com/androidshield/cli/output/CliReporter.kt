@@ -32,7 +32,9 @@ object CliReporter {
         terminal.println("manifest    : ${analysis.hasAndroidManifest}")
         terminal.println("integrity   : ${analysis.hasIntegrityMetadata}")
         terminal.println("as1 assets  : ${analysis.encryptedAssetPaths.size}")
-        terminal.println("markers     : ${analysis.shieldMarkerHits.joinToString().ifEmpty { "(none)" }}")
+        terminal.println(
+            "markers     : ${analysis.shieldMarkerHits.joinToString().ifEmpty { "(none)" }}"
+        )
         if (verbose) {
             if (analysis.nativeLibraries.isNotEmpty()) {
                 terminal.println("natives:")
@@ -56,7 +58,11 @@ object CliReporter {
             return
         }
         val statusColor = if (report.secure) TextColors.green else TextColors.red
-        terminal.println(statusColor("secure=${report.secure} score=${report.score} threats=${report.threats.size}"))
+        terminal.println(
+            statusColor(
+                "secure=${report.secure} score=${report.score} threats=${report.threats.size}"
+            )
+        )
         report.threats.forEach { threat ->
             val color = when (threat.severity.name) {
                 "CRITICAL", "HIGH" -> TextColors.red
@@ -85,7 +91,7 @@ object CliReporter {
         val hasIntegrityMetadata: Boolean,
         val encryptedAssetPaths: List<String>,
         val shieldMarkerHits: List<String>,
-        val buildFingerprint: String? = null,
+        val buildFingerprint: String? = null
     ) {
         companion object {
             fun from(a: PackageAnalysis) = InspectDto(
@@ -100,7 +106,7 @@ object CliReporter {
                 hasIntegrityMetadata = a.hasIntegrityMetadata,
                 encryptedAssetPaths = a.encryptedAssetPaths,
                 shieldMarkerHits = a.shieldMarkerHits,
-                buildFingerprint = a.integrityMetadata?.buildFingerprint,
+                buildFingerprint = a.integrityMetadata?.buildFingerprint
             )
         }
     }

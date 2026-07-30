@@ -7,11 +7,9 @@ import java.security.MessageDigest
  * Digest helpers shared by the plugin (emit) and runtime (verify).
  */
 object DigestUtils {
-    fun sha256(bytes: ByteArray): ByteArray =
-        MessageDigest.getInstance("SHA-256").digest(bytes)
+    fun sha256(bytes: ByteArray): ByteArray = MessageDigest.getInstance("SHA-256").digest(bytes)
 
-    fun sha512(bytes: ByteArray): ByteArray =
-        MessageDigest.getInstance("SHA-512").digest(bytes)
+    fun sha512(bytes: ByteArray): ByteArray = MessageDigest.getInstance("SHA-512").digest(bytes)
 
     fun sha256Hex(bytes: ByteArray): String = toHex(sha256(bytes))
 
@@ -37,8 +35,7 @@ object DigestUtils {
         return result == 0
     }
 
-    fun toHex(bytes: ByteArray): String =
-        bytes.joinToString("") { each -> "%02x".format(each) }
+    fun toHex(bytes: ByteArray): String = bytes.joinToString("") { each -> "%02x".format(each) }
 
     fun fromHex(hex: String): ByteArray {
         require(hex.length % 2 == 0) { "Hex length must be even" }

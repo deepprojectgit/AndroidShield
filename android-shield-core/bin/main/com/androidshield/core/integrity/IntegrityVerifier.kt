@@ -9,7 +9,7 @@ import com.androidshield.core.model.Threat
 data class IntegrityCheckResult(
     val matches: Boolean,
     val mismatchedFields: List<String> = emptyList(),
-    val threats: List<Threat> = emptyList(),
+    val threats: List<Threat> = emptyList()
 ) {
     companion object {
         fun ok(): IntegrityCheckResult = IntegrityCheckResult(matches = true)
@@ -24,7 +24,7 @@ data class ObservedIntegrity(
     val manifestDigestSha256: String = "",
     val resourcesDigestSha256: String = "",
     val nativeLibsDigestSha256: String = "",
-    val buildFingerprint: String = "",
+    val buildFingerprint: String = ""
 )
 
 /**
@@ -37,7 +37,11 @@ object IntegrityVerifier {
 
         fun check(field: String, expectedValue: String, observedValue: String) {
             if (expectedValue.isBlank() || observedValue.isBlank()) return
-            if (!DigestUtils.constantTimeEquals(expectedValue.lowercase(), observedValue.lowercase())) {
+            if (!DigestUtils.constantTimeEquals(
+                    expectedValue.lowercase(),
+                    observedValue.lowercase()
+                )
+            ) {
                 mismatches += field
             }
         }
@@ -45,8 +49,16 @@ object IntegrityVerifier {
         check("buildFingerprint", expected.buildFingerprint, observed.buildFingerprint)
         check("dexDigestSha256", expected.dexDigestSha256, observed.dexDigestSha256)
         check("manifestDigestSha256", expected.manifestDigestSha256, observed.manifestDigestSha256)
-        check("resourcesDigestSha256", expected.resourcesDigestSha256, observed.resourcesDigestSha256)
-        check("nativeLibsDigestSha256", expected.nativeLibsDigestSha256, observed.nativeLibsDigestSha256)
+        check(
+            "resourcesDigestSha256",
+            expected.resourcesDigestSha256,
+            observed.resourcesDigestSha256
+        )
+        check(
+            "nativeLibsDigestSha256",
+            expected.nativeLibsDigestSha256,
+            observed.nativeLibsDigestSha256
+        )
 
         if (mismatches.isEmpty()) {
             return IntegrityCheckResult.ok()
@@ -57,10 +69,16 @@ object IntegrityVerifier {
                 id = "integrity.mismatch.$field",
                 title = "Integrity mismatch: $field",
                 severity = Severity.CRITICAL,
-                description = "Observed digest for `$field` does not match build-time metadata",
-                recommendation = "Refuse to run or degrade features — APK may be repackaged/tampered",
+                description =
+                "Observed digest for `$field` does not match build-time metadata",
+                recommendation =
+                "Refuse to run or degrade features — APK may be repackaged/tampered"
             )
         }
-        return IntegrityCheckResult(matches = false, mismatchedFields = mismatches, threats = threats)
+        return IntegrityCheckResult(
+            matches = false,
+            mismatchedFields = mismatches,
+            threats = threats
+        )
     }
 }

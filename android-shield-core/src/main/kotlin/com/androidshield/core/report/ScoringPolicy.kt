@@ -16,7 +16,7 @@ data class ScoringPolicy(
     val penalties: Map<Severity, Int> = DEFAULT_PENALTIES,
     val insecureSeverities: Set<Severity> = setOf(Severity.HIGH, Severity.CRITICAL),
     val maxScore: Int = 100,
-    val minScore: Int = 0,
+    val minScore: Int = 0
 ) {
     init {
         require(maxScore >= minScore) { "maxScore must be >= minScore" }
@@ -31,7 +31,7 @@ data class ScoringPolicy(
             Severity.LOW to 2,
             Severity.MEDIUM to 8,
             Severity.HIGH to 20,
-            Severity.CRITICAL to 40,
+            Severity.CRITICAL to 40
         )
 
         val DEFAULT: ScoringPolicy = ScoringPolicy()
@@ -42,9 +42,9 @@ data class ScoringPolicy(
                 Severity.LOW to 5,
                 Severity.MEDIUM to 15,
                 Severity.HIGH to 30,
-                Severity.CRITICAL to 50,
+                Severity.CRITICAL to 50
             ),
-            insecureSeverities = setOf(Severity.MEDIUM, Severity.HIGH, Severity.CRITICAL),
+            insecureSeverities = setOf(Severity.MEDIUM, Severity.HIGH, Severity.CRITICAL)
         )
     }
 }
