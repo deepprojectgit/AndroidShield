@@ -37,5 +37,5 @@ dependencies {
 }
 
 // Apply published plugin in consuming apps:
-// plugins { id("com.androidshield.gradle") version "<version>" }
+// plugins { id("io.github.deepprojectgit.androidshield") version "<version>" }
 // In-repo verification of the plugin is covered by :android-shield-plugin:test.

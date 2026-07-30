@@ -36,7 +36,7 @@ Protect Android apps against reverse engineering, debugging, hooking, tampering,
 | `android-shield-core` | JVM | Models, crypto, integrity, scoring |
 | `android-shield-runtime` | AAR | `AndroidShield` API, detectors, RASP |
 | `android-shield-native` | AAR + `.so` | JNI anti-debug / integrity / decrypt |
-| `android-shield-plugin` | Gradle plugin | `com.androidshield.gradle` + DSL |
+| `android-shield-plugin` | Gradle plugin | `io.github.deepprojectgit.androidshield` + DSL |
 | `android-shield-cli` | JVM app | Offline `inspect` / `verify` / `report` |
 | `android-shield-testing` | JVM | Shared test fixtures |
 | `sample-app` | App | Compose protection dashboard |
@@ -51,7 +51,7 @@ Protect Android apps against reverse engineering, debugging, hooking, tampering,
 
 ```kotlin
 plugins {
-    id("com.androidshield.gradle") version "0.1.0"
+    id("io.github.deepprojectgit.androidshield") version "0.1.0"
 }
 
 dependencies {

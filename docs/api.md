@@ -56,7 +56,7 @@ See [core.md](core.md) for details.
 
 ## Gradle DSL
 
-Plugin id: `com.androidshield.gradle` — see [gradle-plugin.md](gradle-plugin.md).
+Plugin id: `io.github.deepprojectgit.androidshield` — see [gradle-plugin.md](gradle-plugin.md).
 
 ```kotlin
 androidShield {

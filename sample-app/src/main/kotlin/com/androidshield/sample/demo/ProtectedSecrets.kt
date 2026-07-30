@@ -7,7 +7,7 @@ import com.androidshield.annotations.ShieldProtect
 /**
  * Demo type showing annotation surface for the Gradle plugin.
  *
- * When `com.androidshield.gradle` is applied with string encryption / package
+ * When `io.github.deepprojectgit.androidshield` is applied with string encryption / package
  * protection enabled, these markers guide ASM transforms. In this monorepo the
  * sample depends on runtime/annotations directly; consumers apply the plugin.
  */

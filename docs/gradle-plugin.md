@@ -1,12 +1,15 @@
 # Gradle Plugin Guide
 
-Plugin id: `com.androidshield.gradle`
+Plugin id: `io.github.deepprojectgit.androidshield`
+
+> Maven Central requires the plugin id (marker group) to sit under your verified namespace  
+> (`io.github.deepprojectgit…`). The old id `com.androidshield.gradle` is not allowed on Central.
 
 ## Apply
 
 ```kotlin
 plugins {
-    id("com.androidshield.gradle") version "0.1.0-SNAPSHOT"
+    id("io.github.deepprojectgit.androidshield") version "0.1.0"
 }
 
 androidShield {
@@ -28,7 +31,7 @@ androidShield {
 
 In this monorepo the plugin is built as `:android-shield-plugin`. Consuming apps apply it after publish/`mavenLocal()`. In-repo verification uses `:android-shield-plugin:test` (ASM transform + R8 rule unit tests).
 
-## What Phase 2 generates
+## What the plugin generates
 
 | Task / output | Purpose |
 |---------------|---------|

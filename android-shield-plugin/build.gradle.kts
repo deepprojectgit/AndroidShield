@@ -36,7 +36,7 @@ dependencies {
 gradlePlugin {
     plugins {
         create("androidShield") {
-            id = "com.androidshield.gradle"
+            id = "io.github.deepprojectgit.androidshield"
             implementationClass = "com.androidshield.plugin.AndroidShieldPlugin"
             displayName = "AndroidShield"
             description = "Build-time Android application protection (bytecode, encryption, integrity)."

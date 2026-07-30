@@ -85,7 +85,7 @@ object ProtectionAnalyzer {
                     "Integrity metadata missing",
                     severity,
                     "assets/androidshield/integrity.json not found",
-                    "Apply com.androidshield.gradle and ship generateShieldArtifacts output"
+                    "Apply io.github.deepprojectgit.androidshield and ship generateShieldArtifacts output"
                 )
             )
         }

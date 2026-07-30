@@ -46,7 +46,7 @@ object BuildSecrets {
         val scrambled = SCRAMBLED_KEY
         val seed = SEED
         check(scrambled.isNotEmpty() && seed.isNotEmpty()) {
-            "AndroidShield BuildSecrets not populated — apply com.androidshield.gradle"
+            "AndroidShield BuildSecrets not populated — apply io.github.deepprojectgit.androidshield"
         }
         val key =
             if (com.androidshield.nativebridge.NativeShield.isAvailable()) {

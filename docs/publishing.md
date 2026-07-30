@@ -148,4 +148,4 @@ export ORG_GRADLE_PROJECT_signingInMemoryKeyPassword=...
 
 ## Plugin Portal (optional)
 
-Publish `com.androidshield.gradle` via the Gradle Plugin Portal separately if you want the short `plugins { id(...) version }` form without extra `pluginManagement` repos.
+Publish `io.github.deepprojectgit.androidshield` via the Gradle Plugin Portal separately if you want the short `plugins { id(...) version }` form without extra `pluginManagement` repos.

@@ -55,7 +55,7 @@ Scoring: `ScoringPolicy.DEFAULT` (HIGH/CRITICAL fail) or `STRICT` (also MEDIUM).
 
 ## Build-time protection
 
-1. Apply `com.androidshield.gradle`
+1. Apply `io.github.deepprojectgit.androidshield`
 2. Annotate hot paths with `@ShieldProtect` / `@ShieldEncrypt`
 3. Limit scope with `protectPackages` / `encryptAssetPatterns`
 4. Ship integrity metadata produced under `build/androidshield/<variant>/`
