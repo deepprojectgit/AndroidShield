@@ -93,7 +93,7 @@ jobs:
           VERSION=$(grep -E '^androidshield.version=' gradle.properties | cut -d= -f2 | tr -d '[:space:]')
           echo "androidshield.version=$VERSION"
           if [[ "$VERSION" == *-SNAPSHOT ]]; then
-            echo "::error::Maven Central Portal does not accept SNAPSHOT versions. Set androidshield.version to a release (e.g. 0.1.0) in gradle.properties."
+            echo "::error::Maven Central Portal does not accept SNAPSHOT versions. Set androidshield.version to a release (e.g. 0.1.1) in gradle.properties."
             exit 1
           fi
 

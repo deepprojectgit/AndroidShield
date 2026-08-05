@@ -8,7 +8,7 @@ android {
     defaultConfig {
         applicationId = "com.androidshield.sample"
         versionCode = 1
-        versionName = "0.1.0"
+        versionName = "0.1.1"
     }
     buildFeatures {
         compose = true

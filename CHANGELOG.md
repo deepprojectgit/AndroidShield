@@ -7,11 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-08-05
+
 ### Changed
 
-- Gradle plugin id changed to `io.github.deepprojectgit.androidshield` (Maven Central namespace requirement; `com.androidshield.gradle` marker group is not allowed)
-- First Maven Central release uses version **`0.1.0`** (Central Portal does not accept `*-SNAPSHOT`)
-- CI publish job fails fast if `androidshield.version` still ends with `-SNAPSHOT`
+- Bump release version to **`0.1.1`** (Maven Central does not allow republishing existing `0.1.0` coordinates)
+- Gradle plugin id is `io.github.deepprojectgit.androidshield` (Maven Central namespace requirement)
 
 ## [0.1.0] - 2026-07-30
 

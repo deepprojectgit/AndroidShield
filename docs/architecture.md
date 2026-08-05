@@ -42,4 +42,4 @@ Manual `ShieldRuntimeGraph` — no reflection DI, minimal startup cost.
 
 ## Phase map
 
-All delivery phases (1–8) are complete for `0.1.0-SNAPSHOT`. See root [README](../README.md) status table.
+All delivery phases (1–8) are complete for `0.1.1`. See root [README](../README.md) status table.

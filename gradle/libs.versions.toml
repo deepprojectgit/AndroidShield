@@ -101,4 +101,4 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlintGradle" }
 spotbugs = { id = "com.github.spotbugs", version.ref = "spotbugs" }
 maven-publish = { id = "com.vanniktech.maven.publish", version.ref = "mavenPublish" }
 android-test = { id = "com.android.test", version.ref = "agp" }
-androidshield = { id = "io.github.deepprojectgit.androidshield", version = "0.1.0" }
+androidshield = { id = "io.github.deepprojectgit.androidshield", version = "0.1.1" }

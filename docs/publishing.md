@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.deepprojectgit.androidshield:android-shield-runtime:0.1.0")
+    implementation("io.github.deepprojectgit.androidshield:android-shield-runtime:0.1.1")
 }
 ```
 
