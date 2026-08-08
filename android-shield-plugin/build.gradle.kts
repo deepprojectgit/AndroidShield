@@ -8,7 +8,7 @@ group = providers.gradleProperty("androidshield.groupId")
     .orElse("io.github.deepprojectgit.androidshield")
     .get()
 version = providers.gradleProperty("androidshield.version")
-    .orElse("0.1.0-SNAPSHOT")
+    .orElse("0.1.2")
     .get()
 
 java {

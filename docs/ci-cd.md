@@ -15,9 +15,11 @@
   :android-shield-cli:build \
   :android-shield-plugin:build
 
-./gradlew :android-shield-native:assembleDebug \
+./gradlew :android-shield-native:assembleRelease \
   :android-shield-runtime:assembleDebug \
   :sample-app:assembleDebug
+
+python3 scripts/check-elf-16kb-alignment.py
 
 # CLI offline verify (CI)
 ./gradlew :android-shield-cli:installDist

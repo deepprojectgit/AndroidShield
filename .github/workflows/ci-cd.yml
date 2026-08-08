@@ -38,8 +38,8 @@ jobs:
 
       - name: Install NDK & CMake
         run: |
-          sdkmanager "ndk;27.0.12077973" "cmake;3.22.1"
-          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.0.12077973" >> "$GITHUB_ENV"
+          sdkmanager "ndk;28.2.13676358" "cmake;3.22.1"
+          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/28.2.13676358" >> "$GITHUB_ENV"
 
       - name: Build JVM modules
         run: ./gradlew :android-shield-annotations:build :android-shield-core:build :android-shield-testing:build :android-shield-cli:build --stacktrace
@@ -48,7 +48,10 @@ jobs:
         run: ./gradlew :android-shield-plugin:build --stacktrace
 
       - name: Build Android libraries & sample
-        run: ./gradlew :android-shield-native:assembleDebug :android-shield-runtime:assembleDebug :sample-app:assembleDebug --stacktrace
+        run: ./gradlew :android-shield-native:assembleRelease :android-shield-native:assembleDebug :android-shield-runtime:assembleDebug :sample-app:assembleDebug --stacktrace
+
+      - name: Verify native 16 KB ELF alignment
+        run: python3 scripts/check-elf-16kb-alignment.py
 
       - name: Unit tests
         run: ./gradlew test --stacktrace
@@ -85,15 +88,15 @@ jobs:
 
       - name: Install NDK & CMake
         run: |
-          sdkmanager "ndk;27.0.12077973" "cmake;3.22.1"
-          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.0.12077973" >> "$GITHUB_ENV"
+          sdkmanager "ndk;28.2.13676358" "cmake;3.22.1"
+          echo "ANDROID_NDK_HOME=$ANDROID_HOME/ndk/28.2.13676358" >> "$GITHUB_ENV"
 
       - name: Require non-SNAPSHOT version
         run: |
           VERSION=$(grep -E '^androidshield.version=' gradle.properties | cut -d= -f2 | tr -d '[:space:]')
           echo "androidshield.version=$VERSION"
           if [[ "$VERSION" == *-SNAPSHOT ]]; then
-            echo "::error::Maven Central Portal does not accept SNAPSHOT versions. Set androidshield.version to a release (e.g. 0.1.1) in gradle.properties."
+            echo "::error::Maven Central Portal does not accept SNAPSHOT versions. Set androidshield.version to a release (e.g. 0.1.2) in gradle.properties."
             exit 1
           fi
 

@@ -9,8 +9,11 @@ echo "==> AndroidShield smoke build"
   :android-shield-annotations:build \
   :android-shield-cli:build \
   :android-shield-plugin:build \
+  :android-shield-native:assembleRelease \
   :android-shield-runtime:assembleDebug \
   :sample-app:assembleDebug \
   --stacktrace
+
+python3 scripts/check-elf-16kb-alignment.py
 
 echo "==> OK"

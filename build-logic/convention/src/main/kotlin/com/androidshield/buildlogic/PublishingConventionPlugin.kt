@@ -27,7 +27,7 @@ class PublishingConventionPlugin : Plugin<Project> {
             val groupIdValue = providers.gradleProperty("androidshield.groupId")
                 .orElse("io.github.deepprojectgit.androidshield")
             val versionValue = providers.gradleProperty("androidshield.version")
-                .orElse("0.1.0-SNAPSHOT")
+                .orElse("0.1.2")
 
             group = groupIdValue.get()
             version = versionValue.get()

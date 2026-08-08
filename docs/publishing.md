@@ -13,7 +13,7 @@
 - **Version:** `androidshield.version` in `gradle.properties` (SemVer release — **no `-SNAPSHOT`**)
 - **Repository:** Maven Central (Sonatype Central Portal)
 
-> Central Portal does **not** accept `*-SNAPSHOT` uploads. Use `0.1.0`, `0.1.1`, … for publish.
+> Central Portal does **not** accept `*-SNAPSHOT` uploads. Use `0.1.2`, `0.1.3`, … for publish.
 
 ## Artifacts
 
@@ -35,7 +35,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.deepprojectgit.androidshield:android-shield-runtime:0.1.1")
+    implementation("io.github.deepprojectgit.androidshield:android-shield-runtime:0.1.2")
 }
 ```
 

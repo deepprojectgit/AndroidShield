@@ -8,10 +8,15 @@ android {
     defaultConfig {
         applicationId = "com.androidshield.sample"
         versionCode = 1
-        versionName = "0.1.1"
+        versionName = "0.1.2"
     }
     buildFeatures {
         compose = true
+    }
+    packaging {
+        jniLibs {
+            useLegacyPackaging = false
+        }
     }
 }
 
@@ -37,5 +42,5 @@ dependencies {
 }
 
 // Apply published plugin in consuming apps:
-// plugins { id("io.github.deepprojectgit.androidshield") version "<version>" }
+// plugins { id("io.github.deepprojectgit.androidshield") version "0.1.2" }
 // In-repo verification of the plugin is covered by :android-shield-plugin:test.

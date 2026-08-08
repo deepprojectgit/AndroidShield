@@ -5,6 +5,7 @@ plugins {
 
 android {
     namespace = "com.androidshield.nativebridge"
+    ndkVersion = "28.2.13676358"
     defaultConfig {
         ndk {
             abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86", "x86_64")
@@ -12,7 +13,10 @@ android {
         externalNativeBuild {
             cmake {
                 cppFlags += listOf("-std=c++17", "-fvisibility=hidden")
-                arguments += listOf("-DANDROID_STL=c++_shared")
+                arguments += listOf(
+                    "-DANDROID_STL=c++_static",
+                    "-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON",
+                )
             }
         }
     }
@@ -24,6 +28,7 @@ android {
     }
     packaging {
         jniLibs {
+            useLegacyPackaging = false
             keepDebugSymbols += listOf("**/*.so")
         }
     }

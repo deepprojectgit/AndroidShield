@@ -9,7 +9,7 @@ Plugin id: `io.github.deepprojectgit.androidshield`
 
 ```kotlin
 plugins {
-    id("io.github.deepprojectgit.androidshield") version "0.1.1"
+    id("io.github.deepprojectgit.androidshield") version "0.1.2"
 }
 
 androidShield {

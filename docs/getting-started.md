@@ -4,7 +4,7 @@
 
 - JDK 17+
 - Android SDK (compileSdk 35)
-- Android NDK + CMake 3.22+ (for `android-shield-native`)
+- Android NDK **28.2.13676358** + CMake 3.22+ (for `android-shield-native`, 16 KB page-size aligned)
 - AGP 8.7+ / Kotlin 2.0+
 
 ## Build this repository
@@ -36,11 +36,11 @@ After publishing to Maven Central (or `mavenLocal()`):
 
 // app/build.gradle.kts
 plugins {
-    id("io.github.deepprojectgit.androidshield") version "0.1.1"
+    id("io.github.deepprojectgit.androidshield") version "0.1.2"
 }
 
 dependencies {
-    implementation("io.github.deepprojectgit.androidshield:android-shield-runtime:0.1.1")
+    implementation("io.github.deepprojectgit.androidshield:android-shield-runtime:0.1.2")
 }
 ```
 

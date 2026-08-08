@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.2] - 2026-08-08
+
+### Changed
+
+- Release version **`0.1.2`** (Maven Central cannot overwrite `0.1.1`)
+
+### Fixed
+
+- `libandroidshield.so` is now linked with **16 KB ELF LOAD alignment** (`-Wl,-z,max-page-size=16384` + `ANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES`) so `nativeProtection` passes Android 15 / Play Console 16 KB checks
+- Native module pins NDK **28.2.13676358** (16 KB default), uses static libc++, and CI verifies release LOAD `p_align >= 0x4000`
+
 ## [0.1.1] - 2026-08-05
 
 ### Changed
